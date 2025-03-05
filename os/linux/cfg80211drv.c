@@ -180,7 +180,7 @@ INT CFG80211DRV_IoctlHandle(
 	PRTMP_ADAPTER pAd = (PRTMP_ADAPTER)pAdSrc;
 #ifdef CONFIG_AP_SUPPORT
 	struct ieee80211_mgmt *mgmt;
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3,2,0))	
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3,4,0))	
 	INT offset = sizeof(HEADER_802_11) + 12;
 #endif
 #endif
@@ -506,7 +506,7 @@ INT CFG80211DRV_IoctlHandle(
 					{
 						//BOOLEAN res;
 						//INT offset = sizeof(HEADER_802_11) + 12;
-						#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3,2,0))	
+						#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3,4,0))	
 								CFG80211_SyncPacketWmmIe(pAd, pData + offset , Data - offset);
 						#endif
 							
@@ -1644,7 +1644,7 @@ BOOLEAN CFG80211DRV_OpsBeaconSet(
 	//UINT  i;
 	INT idx;
 	ULONG offset;
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3,2,0))		
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3,4,0))		
 	const UINT WFA_OUI = 0x0050F2;
 	const UCHAR WMM_OUI_TYPE = 0x2;
 #else
@@ -1655,12 +1655,12 @@ BOOLEAN CFG80211DRV_OpsBeaconSet(
 	const UCHAR *rsn_ie = NULL;
 	const UCHAR *supp_rates_ie = NULL;
 	//const UCHAR *ext_supp_rates_ie = NULL;
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(2, 6, 33))
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,33))
 #ifdef DOT11_N_SUPPORT
 	UCHAR *ht_cap = NULL;
 #endif
 	//const UCHAR *ht_info = NULL;
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3,2,0))		
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3,4,0))		
 	const UINT8 *wmm_ie = NULL;
 #endif
 #ifdef CONFIG_P2P_AUTO_GO_AS_SOFTAP
@@ -1732,7 +1732,7 @@ BOOLEAN CFG80211DRV_OpsBeaconSet(
 
 		TxPreamble = (pAd->CommonCfg.TxPreamble == Rt802_11PreambleLong ? 0 : 1);	
 
-#if LINUX_VERSION_CODE >= KERNEL_VERSION(3, 2, 0)
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(3, 4, 0)
 		if (pBeacon->ssid_len <= IEEE80211_MAX_SSID_LEN) {
 			pMbss->SsidLen = pBeacon->ssid_len;
 			NdisCopyMemory(pMbss->Ssid, pBeacon->ssid, pMbss->SsidLen);
@@ -1759,7 +1759,7 @@ BOOLEAN CFG80211DRV_OpsBeaconSet(
 					pMbss->SsidLen));
 		}
 		pMbss->hidden_ssid = 0;
-#endif /* LINUX_VERSION_CODE >= NKERNEL_VERSION(3, 2, 0) */
+#endif /* LINUX_VERSION_CODE >= NKERNEL_VERSION(3,4,0) */
 	}
 
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,33))
@@ -1767,7 +1767,7 @@ BOOLEAN CFG80211DRV_OpsBeaconSet(
 
 	wpa_ie = cfg80211_find_ie(CFG_WPA_EID, pBeacon->beacon_tail, pBeacon->beacon_tail_len);
 	rsn_ie = cfg80211_find_ie(WLAN_EID_RSN, pBeacon->beacon_tail, pBeacon->beacon_tail_len);//wpa2 case.
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3,2,0))		
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3,4,0))		
         wmm_ie = cfg80211_find_vendor_ie(WFA_OUI, WMM_OUI_TYPE, pBeacon->beacon_tail, pBeacon->beacon_tail_len);	
 #endif
 #if 0
@@ -1801,7 +1801,7 @@ BOOLEAN CFG80211DRV_OpsBeaconSet(
 
 
 	/* WMM EDCA Paramter */ 
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3,2,0))	
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3,4,0))	
 	CFG80211_SyncPacketWmmIe(pAd, pBeacon->beacon_tail, pBeacon->beacon_tail_len);
 #endif
 
@@ -4697,7 +4697,7 @@ VOID CFG80211_ParseBeaconIE(VOID *pAdOrg, VOID *pData,const UCHAR *wpa_ie,  cons
 }
 
 #ifdef CONFIG_AP_SUPPORT
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3,2,0))	
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3,4,0))	
 BOOLEAN CFG80211_SyncPacketWmmIe(VOID *pAdOrg, VOID *pData, ULONG dataLen)
 
 {

@@ -3608,11 +3608,11 @@ BOOLEAN CFG80211OS_RxMgmt(IN PNET_DEV pNetDev, IN INT32 freq, IN PUCHAR frame, I
 #else	
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(3,4,0))
 		return cfg80211_rx_mgmt(pNetDev,
-					freq,
-					0,
-					frame,
-					len,
-					GFP_ATOMIC); 
+									freq,
+									0,
+									frame,
+									len,
+									GFP_ATOMIC); 
 #else
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,37))
 			return cfg80211_rx_mgmt(pNetDev, freq, frame, len, GFP_ATOMIC);
