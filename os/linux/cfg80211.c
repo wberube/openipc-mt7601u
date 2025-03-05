@@ -2263,7 +2263,7 @@ static int CFG80211_OpsMgmtTx(
     IN unsigned int Wait,
     IN const u8 *pBuf,
     IN size_t Len,
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3,2,0))
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3,4,0))
     IN bool no_cck,	
 #endif
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(3,3,0))
@@ -2282,7 +2282,7 @@ static int CFG80211_OpsMgmtTx(
     CFG80211DBG(RT_DEBUG_INFO, ("80211> Mgmt Channel = %d\n", ChanId));
 
 	/* Send the Frame with basic rate 6 */
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3,2,0))
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3,4,0))
     if (no_cck)
 		; //pAd->isCfgDeviceInP2p = TRUE;
 #else
@@ -2354,7 +2354,7 @@ static int CFG80211_OpsSetBeacon(
     CFG80211DBG(RT_DEBUG_TRACE, ("80211>dtim_period = %d \n", info->dtim_period));
     CFG80211DBG(RT_DEBUG_TRACE, ("80211>interval = %d \n", info->interval));
 
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3,2,0)) 
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3,4,0)) 
     CFG80211DBG(RT_DEBUG_TRACE, ("80211>ssid = %s \n", info->ssid));
     CFG80211DBG(RT_DEBUG_TRACE, ("80211>ssid_len = %s \n", info->ssid_len));
     	
@@ -2412,7 +2412,7 @@ static int CFG80211_OpsAddBeacon(
     CFG80211DBG(RT_DEBUG_TRACE, ("80211>dtim_period = %d \n", info->dtim_period));
     CFG80211DBG(RT_DEBUG_TRACE, ("80211>interval = %d \n", info->interval));
 
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3,2,0)) 
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3,4,0)) 
     CFG80211DBG(RT_DEBUG_TRACE, ("80211>ssid = %s \n", info->ssid));
     CFG80211DBG(RT_DEBUG_TRACE, ("80211>ssid_len = %s \n", info->ssid_len));
 
@@ -3378,7 +3378,7 @@ static struct wireless_dev *CFG80211_WdevAlloc(
 	pWdev->wiphy->n_cipher_suites = ARRAY_SIZE(CipherSuites);
 #endif /* LINUX_VERSION_CODE */
 
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3,2,0))
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3,4,0))
 	pWdev->wiphy->flags |= WIPHY_FLAG_AP_UAPSD;
 #endif
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(3,3,0))

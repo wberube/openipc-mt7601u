@@ -272,7 +272,7 @@ VOID CFG80211_ParseBeaconIE(
 	const UCHAR *wpa_ie,
 	const UCHAR *rsn_ie);
 
-#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3,2,0))	
+#if (LINUX_VERSION_CODE >= KERNEL_VERSION(3,4,0))	
 BOOLEAN CFG80211_SyncPacketWmmIe(
 	VOID *pAdOrg,
 	VOID *pData,
