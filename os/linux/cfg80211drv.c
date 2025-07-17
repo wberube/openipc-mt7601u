@@ -1647,7 +1647,8 @@ BOOLEAN CFG80211DRV_OpsBeaconSet(
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(3,2,0))		
 	const UINT WFA_OUI = 0x0050F2;
 	const UCHAR WMM_OUI_TYPE = 0x2;
-#else
+#endif
+#if (LINUX_VERSION_CODE < KERNEL_VERSION(3,4,0))
 	const UCHAR *ssid_ie = NULL;
 #endif
 	PMULTISSID_STRUCT pMbss = &pAd->ApCfg.MBSSID[MAIN_MBSSID];
@@ -1732,7 +1733,7 @@ BOOLEAN CFG80211DRV_OpsBeaconSet(
 
 		TxPreamble = (pAd->CommonCfg.TxPreamble == Rt802_11PreambleLong ? 0 : 1);	
 
-#if LINUX_VERSION_CODE >= KERNEL_VERSION(3, 2, 0)
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(3,4,0)
 		if (pBeacon->ssid_len <= IEEE80211_MAX_SSID_LEN) {
 			pMbss->SsidLen = pBeacon->ssid_len;
 			NdisCopyMemory(pMbss->Ssid, pBeacon->ssid, pMbss->SsidLen);
@@ -1759,7 +1760,7 @@ BOOLEAN CFG80211DRV_OpsBeaconSet(
 					pMbss->SsidLen));
 		}
 		pMbss->hidden_ssid = 0;
-#endif /* LINUX_VERSION_CODE >= NKERNEL_VERSION(3, 2, 0) */
+#endif /* LINUX_VERSION_CODE >= KERNEL_VERSION(3, 4, 0) */
 	}
 
 #if (LINUX_VERSION_CODE >= KERNEL_VERSION(2,6,33))
