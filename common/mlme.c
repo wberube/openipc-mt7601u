@@ -5894,9 +5894,26 @@ VOID StateMachinePerformAction(
 	IN MLME_QUEUE_ELEM *Elem,
 	IN ULONG CurrState)
 {
+	ULONG index;
+	STATE_MACHINE_FUNC pFunc;
 
-	if (S->TransFunc[(CurrState) * S->NrMsg + Elem->MsgType - S->Base])
-		(*(S->TransFunc[(CurrState) * S->NrMsg + Elem->MsgType - S->Base]))(pAd, Elem);
+	if (!S || !Elem || !S->TransFunc) {
+		DBGPRINT(RT_DEBUG_ERROR, ("StateMachinePerformAction: Invalid parameters\n"));
+		return;
+	}
+
+	index = (CurrState) * S->NrMsg + Elem->MsgType - S->Base;
+	if (index >= S->NrMsg * S->NrState) {
+		DBGPRINT(RT_DEBUG_ERROR, ("StateMachinePerformAction: Invalid index %lu\n", index));
+		return;
+	}
+
+	pFunc = S->TransFunc[index];
+	if (pFunc && ((ULONG)pFunc > 0x80000000) && ((ULONG)pFunc < 0xC0000000)) {
+		(*pFunc)(pAd, Elem);
+	} else {
+		DBGPRINT(RT_DEBUG_ERROR, ("StateMachinePerformAction: Invalid function pointer 0x%p at index %lu\n", pFunc, index));
+	}
 }
 
 /*
